@@ -29,7 +29,8 @@
     "publish": {
       "provider": "github",
       "owner": "UmR-2026",
-      "repo": "dsh-desk"
+      "repo": "dsh-desk",
+      "releaseType": "release"
     },
     "win": {
       "target": [
