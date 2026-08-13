@@ -47,7 +47,16 @@ function resolveDsh() {
 
 function buildEnv() {
   const env = { ...process.env }
-  if (isWindows() && !env.DSH_PERMISSION_MODE) {
+  const permMode = env.DSH_PERMISSION_MODE
+  // Never leak the parent session's identity into a freshly spawned `dsh web`:
+  // DSH_SESSION_ID / DSH_SESSION_JSONL make the child resume this session and
+  // splice its own seq into THIS log (the "seq gap in committed region" bug).
+  // Strip every DSH_* except DSH_HOME.
+  for (const key of Object.keys(env)) {
+    if (key.startsWith('DSH_') && key !== 'DSH_HOME') delete env[key]
+  }
+  if (permMode) env.DSH_PERMISSION_MODE = permMode
+  if (isWindows() && !permMode) {
     // Windows has no harness confinement backend, so the CLI's default
     // workspace-write mode cannot boot. Fall back to danger-full-access and
     // warn; users may set DSH_PERMISSION_MODE explicitly to override.
