@@ -1,6 +1,6 @@
 {
   "name": "dsh-desktop",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Desktop shell for the DeepSeek Harness (dsh) Web GUI: tray-resident window, single instance, auto-update.",
   "main": "src/main.js",
   "private": true,
