@@ -1,0 +1,65 @@
+{
+  "name": "dsh-desktop",
+  "version": "0.1.0",
+  "description": "Desktop shell for the DeepSeek Harness (dsh) Web GUI: tray-resident window, single instance, auto-update.",
+  "main": "src/main.js",
+  "private": true,
+  "license": "BSD-3-Clause",
+  "author": "DSH Desktop",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "typecheck": "node --check src/main.js && node --check src/dsh.js && node --check src/window.js && node --check src/tray.js && node --check src/kill-tree.js && node --check src/updater.js",
+    "smoke": "node scripts/smoke.js",
+    "dist": "electron-builder",
+    "dist:dir": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "com.example.dsh-desktop",
+    "productName": "DSH Desktop",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "publish": {
+      "provider": "github",
+      "owner": "UmR-2026",
+      "repo": "dsh-desk"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": true
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "assets/icon.png",
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "assets/icon.png",
+      "category": "Development"
+    }
+  },
+  "devDependencies": {
+    "electron": "^43.4.0",
+    "electron-builder": "^26.15.3"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9"
+  }
+}
